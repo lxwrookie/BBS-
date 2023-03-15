@@ -164,11 +164,11 @@
                 <span class="iconfont icon-checkcode"></span>
               </template>
             </el-input>
-            <!-- <img
+            <img
               :src="checkCodeUrl"
               class="check-code"
               @click="changeCheckCode(0)"
-            /> -->
+            />
           </div>
         </el-form-item>
         <el-form-item v-if="opType == 1">
@@ -232,21 +232,20 @@
                 <span class="iconfont icon-checkcode"></span>
               </template>
             </el-input>
-            <!-- <img
+            <img
               :src="checkCodeUrl4SendMailCode"
               class="check-code"
               @click="changeCheckCode(1)"
-            /> -->
+            />
           </div>
         </el-form-item>
       </el-form>
     </Dialog>
   </div>
-  <div ref = "te">666</div>
 </template>
 
 <script setup>
-import { ref, reactive, getCurrentInstance, nextTick, onMounted } from "vue";
+import { ref, reactive, getCurrentInstance, nextTick } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useStore } from "vuex";
 import md5 from "js-md5";
@@ -268,7 +267,6 @@ const showPanel = (type) => {
   opType.value = type;
   resetForm();
 };
-// 暴露出去属性
 defineExpose({ showPanel });
 
 //验证码
@@ -327,7 +325,7 @@ const getEmailCode = () => {
     });
   });
 };
-// 发送邮件
+//发送邮件
 const sendEmailCode = () => {
   formData4SendMailCodeRef.value.validate(async (valid) => {
     if (!valid) {
@@ -365,7 +363,6 @@ const checkRePassword = (rule, value, callback) => {
 };
 const formData = ref({});
 const formDataRef = ref();
-const te= ref();
 const rules = {
   email: [
     { required: true, message: "请输入邮箱" },
@@ -400,21 +397,12 @@ const resetForm = () => {
     dialogConfig.title = "登录";
   } else if (opType.value == 2) {
     dialogConfig.title = "重置密码";
-  } 
-
-    // 登录
-    // if (opType.value == 1) {
-    //   const cookieLoginInfo = proxy.VueCookies.get("loginInfo");
-    //   if (cookieLoginInfo) {
-    //     formData.value = cookieLoginInfo;
-    //   }
-    // }
-  // 弹框渲染完后
+  }
   nextTick(() => {
-
     changeCheckCode(0);
     formDataRef.value.resetFields();
     formData.value = {};
+
     //登录
     if (opType.value == 1) {
       const cookieLoginInfo = proxy.VueCookies.get("loginInfo");
@@ -495,7 +483,7 @@ const doSubmit = () => {
 
 const closeDialog = () => {
   dialogConfig.show = false;
-  // store.commit("showLogin", false);
+  store.commit("showLogin", false);
 };
 </script>
 
